@@ -1,0 +1,15 @@
+,value
+mean,97.77912867274574
+median,63.333333333333336
+std,81.21369455759132
+max,608.3333333333334
+quiet_hour,3
+quiet_hour_value,48.236009732360095
+busy_hour,18
+busy_hour_value,191.81159420289856
+weekday_mean,96.70451359685991
+weekend_mean,100.58114035087718
+top_day,Monday
+top_day_value,111.45068394528437
+bottom_day,Tuesday
+bottom_day_value,87.125
