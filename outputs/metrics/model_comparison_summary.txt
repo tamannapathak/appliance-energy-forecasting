@@ -1,0 +1,4 @@
+Strongest benchmark: seasonal_naive_weekly (MASE=0.813, RMSE=81.41, MAE=43.46, Bias=-13.16)
+sarimax: MASE=0.832, RMSE=69.02, MAE=44.44, Bias=2.95 -> 2.3% worse than the strongest benchmark
+feature_model: MASE=0.806, RMSE=67.28, MAE=43.07, Bias=7.49 -> 0.9% better than the strongest benchmark
+foundation_model: MASE=0.719, RMSE=77.93, MAE=38.44, Bias=-33.47 -> 11.6% better than the strongest benchmark

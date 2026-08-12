@@ -1,0 +1,1 @@
+Foundation model used: Chronos (amazon/chronos-t5-tiny), zero-shot, 14 daily 24-hour-ahead forecasts using the real expanding history at each origin.

@@ -1,0 +1,23 @@
+numpy
+pandas
+matplotlib
+scipy
+scikit-learn
+statsmodels
+xgboost
+
+# Chronos (Part 7's foundation model). Pinned to an older, still-compatible
+# combination on purpose: chronos-forecasting's *latest* release pins
+# torch>=2.2, and letting pip pick the newest torch that satisfies that
+# pulls several GB of CUDA/cuDNN dependencies on some machines. This pair
+# installs in well under 200 MB with no CUDA packages, confirmed directly.
+torch==2.2.2
+chronos-forecasting==1.5.3
+
+# Optional: only needed to run notebooks/run_demo_pipeline.ipynb in Jupyter.
+# jupyter
+
+# Optional: only needed for the second foundation-model attempt, TimeGPT,
+# which get_foundation_model_forecast_rolling() tries if Chronos fails. Needs
+# a NIXTLA_API_KEY environment variable (free key from dashboard.nixtla.io).
+# nixtla
