@@ -56,7 +56,7 @@ def test_lag_features_do_not_use_future_target_values():
     ml_table = pipeline.make_ml_table(df, target="Appliances")
 
     # For every remaining row, lag_24 must equal the target value 24 rows
-    # earlier in the *original* (pre-dropna) series, never a later one.
+
     full_target = df["Appliances"]
 
     for ts in ml_table.index:
@@ -65,10 +65,7 @@ def test_lag_features_do_not_use_future_target_values():
 
 
 def test_ml_table_has_no_lags_under_24_hours():
-    # make_ml_table() is used for the 24-hour rolling backtest and must
-    # only contain lag/rolling features of 24 hours or more (see its
-    # docstring for why anything shorter is unsafe for a forecast that is
-    # made once and held for the next 24 hours).
+
     df = pd.DataFrame({"Appliances": _toy_series(n=400)})
 
     ml_table = pipeline.make_ml_table(df, target="Appliances")
@@ -83,17 +80,7 @@ def test_ml_table_has_no_lags_under_24_hours():
 
 
 def test_rolling_features_do_not_leak_within_a_forecast_block():
-    # Bug fix: an earlier version of make_ml_table() computed rolling
-    # features as y.shift(1).rolling(window), which still ends at t-1
-    # for every row. That's safe for the first hour of a 24-hour forecast
-    # block, but for a later hour in the same block it reaches into
-    # values earlier in that block, which are not actually known yet
-    # when the whole 24-hour forecast is made once at the block's start.
-    # make_ml_table() now computes rolling features once per block (using
-    # only data strictly before the block starts) and broadcasts them to
-    # every row in the block. This test checks that directly: changing
-    # the realised values *inside* a forecast block must not change that
-    # block's rolling features at all.
+ 
     horizon = 24
     test_steps = 48
     df = pd.DataFrame({"Appliances": _toy_series(n=500)})
@@ -132,13 +119,11 @@ def test_tune_feature_model_returns_a_param_dict_fit_feature_model_accepts():
     assert set(best_params) == {"n_estimators", "learning_rate", "max_depth"}
     assert len(results) > 0
 
-    # Should not raise: fit_feature_model must accept exactly this dict.
     pipeline.fit_feature_model(ml_table[feature_cols], ml_table["Appliances"], params=best_params)
 
 
 def test_processed_hourly_data_has_no_missing_target_values(tmp_path):
-    # Build a tiny fake raw CSV in the shape load_appliance_data() expects,
-    # rather than depending on the real (large) dataset being present.
+
     dates = pd.date_range("2016-01-01", periods=600, freq="10min")
     fake = pd.DataFrame({
         "date": dates.strftime("%Y-%m-%d %H:%M:%S"),
